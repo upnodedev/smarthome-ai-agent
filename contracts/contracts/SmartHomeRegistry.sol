@@ -12,6 +12,7 @@ struct Light {
 
 contract SmartHomeRegistry is Ownable {
     error LightAlreadyRegistered();
+    error LightNotFound();
     error NotOperator();
 
     mapping(address => Light) public lights;
@@ -71,6 +72,8 @@ contract SmartHomeRegistry is Ownable {
     event ToggleLight(address indexed xmtpAddress, bool on);
 
     function toggleLight(address xmtpAddress, bool on) public onlyOperator {
+        if (lights[xmtpAddress].xmtpAddress == address(0))
+            revert LightNotFound();
         lights[xmtpAddress].on = on;
         emit ToggleLight(xmtpAddress, on);
     }
