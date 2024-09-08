@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import './index.css'
 import Homepage from './Homepage';
-import { createConfig, http, WagmiProvider } from 'wagmi';
+import { WagmiProvider } from 'wagmi';
 import { defineChain } from 'viem';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi';
