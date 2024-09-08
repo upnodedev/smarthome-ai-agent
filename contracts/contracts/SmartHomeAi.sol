@@ -12,7 +12,7 @@ contract SmartHomeAi is Ownable {
     IOracle.OpenAiRequest private config;
 
     mapping(uint256 => IOracle.Message) internal messageHistory;
-    mapping(uint256 => string) internal messageResponse;
+    mapping(uint256 => string) public messageResponse;
 
     string public preMessage;
     string public postMessage;
@@ -84,7 +84,10 @@ contract SmartHomeAi is Ownable {
             if (isOn || isOff) {
                 string memory xmtpAddressStr = substring(response, 7);
                 address xmtpAddress = toAddress(xmtpAddressStr);
-                registry.toggleLight(xmtpAddress, isOn);
+                try registry.toggleLight(xmtpAddress, isOn) {} catch (bytes memory) {
+                    isError = true;
+                    response = string.concat("Error ", isOn ? "ON," : "OFF,", xmtpAddressStr, ": ", _response.content);
+                }
             }
         }
 

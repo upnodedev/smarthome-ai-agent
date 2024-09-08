@@ -20,8 +20,8 @@ contract SmartHomeRegistry is Ownable {
 
     mapping(address => bool) public operators;
 
-    constructor(address admin) Ownable(admin) {
-        operators[admin] = true;
+    constructor() Ownable(msg.sender) {
+        operators[msg.sender] = true;
     }
 
     modifier onlyOperator() {

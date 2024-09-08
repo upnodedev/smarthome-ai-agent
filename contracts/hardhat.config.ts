@@ -1,5 +1,10 @@
+import { config as dotenv } from "dotenv"
+dotenv()
+
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
+
+const accounts = [ process.env.PRIVATE_KEY! ]
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -16,10 +21,7 @@ const config: HardhatUserConfig = {
     galadriel: {
       chainId: 696969,
       url: "https://devnet.galadriel.com/",
-      // accounts: galadrielDevnet,
-    },
-    hardhat: {
-      chainId: 1337,
+      accounts,
     },
     localhost: {
       chainId: 1337,
